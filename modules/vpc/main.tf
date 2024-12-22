@@ -97,7 +97,7 @@ resource "aws_internet_gateway" "igw" {
 resource "aws_route" "route" {
   count                     = length(var.frontend_subnets)
   route_table_id            = aws_route_table.frontend_route_table[count.index].id
-  destination_cidr_block    = aws_subnet.frontend[count.index]
+  destination_cidr_block    = var.frontend_subnets[count.index]
   vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
   gateway_id                = aws_internet_gateway.igw.id
 }
