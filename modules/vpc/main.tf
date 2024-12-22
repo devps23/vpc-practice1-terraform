@@ -87,3 +87,17 @@ resource "aws_route_table_association" "db-tbl-ass" {
   subnet_id      = aws_subnet.db[count.index].id
   route_table_id = aws_route_table.db_route_table[count.index].id
 }
+# create an internet gateway
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.vpc.id
+  tags = {
+    Name = "${var.env}-igw"
+  }
+}
+resource "aws_route" "route" {
+  count                     = length(var.frontend_subnets)
+  route_table_id            = aws_route_table.frontend_route_table[count.index].id
+  destination_cidr_block    = aws_subnet.frontend[count.index].id
+  vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
+  gateway_id                = aws_internet_gateway.igw.id
+}
