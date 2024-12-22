@@ -44,10 +44,27 @@ resource "aws_vpc_peering_connection" "peer" {
     Name = "${var.env}--peer"
   }
 }
-# create a route table
-resource "aws_route_table" "route_table" {
+# create a frontend route table
+resource "aws_route_table" "frontend_route_table" {
+  count = length(var.frontend_subnets)
   vpc_id = aws_vpc.vpc.id
   tags = {
-    Name = "${var.env}-route_table"
+    Name = "${var.env}-route_table-${count.index+1}"
+  }
+}
+# create a backend route table
+resource "aws_route_table" "backend_route_table" {
+  count = length(var.backend_subnets)
+  vpc_id = aws_vpc.vpc.id
+  tags = {
+    Name = "${var.env}-route_table-${count.index+1}"
+  }
+}
+# create a db route table
+resource "aws_route_table" "db_route_table" {
+  count = length(var.db_subnets)
+  vpc_id = aws_vpc.vpc.id
+  tags = {
+    Name = "${var.env}-route_table-${count.index+1}"
   }
 }
