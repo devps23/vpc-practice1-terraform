@@ -1,5 +1,5 @@
 module "app" {
-  source = "modules/app"
+  source = "./modules/app"
   instance_type="t2.micro"
   env = var.env
 }
