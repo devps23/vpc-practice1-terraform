@@ -1,10 +1,10 @@
-module "app" {
-  source = "./modules/app"
-  instance_type="t2.micro"
-  env = var.env
-  subnets = var.frontend_subnets
-  vpc_id = var.vpc_id
-}
+# module "app" {
+#   source = "./modules/app"
+#   instance_type="t2.micro"
+#   env = var.env
+#   subnets = var.frontend_subnets
+#   vpc_id = var.vpc_id
+# }
 module "vpc"{
   source = "./modules/vpc"
   vpc_id = var.vpc_id
