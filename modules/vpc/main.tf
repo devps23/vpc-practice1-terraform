@@ -9,8 +9,8 @@ resource "aws_vpc" "vpc" {
 resource "aws_subnet" "frontend" {
   count      = length(var.frontend_subnets)
   vpc_id     = aws_vpc.vpc.id
-  cidr_block = var.frontend_subnets[count.index+1]
-  availability_zone = var.availability_zones[count.index+1]
+  cidr_block = var.frontend_subnets[count.index]
+  availability_zone = var.availability_zones[count.index]
   tags = {
     Name = "${var.env}-frontend-${count.index+1}"
   }
@@ -19,8 +19,8 @@ resource "aws_subnet" "frontend" {
 resource "aws_subnet" "backend" {
   count      = length(var.backend_subnets)
   vpc_id     = aws_vpc.vpc.id
-  cidr_block = var.backend_subnets[count.index+1]
-  availability_zone = var.availability_zones[count.index+1]
+  cidr_block = var.backend_subnets[count.index]
+  availability_zone = var.availability_zones[count.index]
   tags = {
     Name = "${var.env}-backend-${count.index+1}"
   }
@@ -29,8 +29,8 @@ resource "aws_subnet" "backend" {
 resource "aws_subnet" "db" {
   count      = length(var.db_subnets)
   vpc_id     = aws_vpc.vpc.id
-  cidr_block = var.db_subnets[count.index+1]
-  availability_zone = var.availability_zones[count.index+1]
+  cidr_block = var.db_subnets[count.index]
+  availability_zone = var.availability_zones[count.index]
   tags = {
     Name = "${var.env}-db-${count.index+1}"
   }
