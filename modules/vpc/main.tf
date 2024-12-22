@@ -1,0 +1,42 @@
+// create vpc
+resource "aws_vpc" "vpc" {
+  cidr_block = var.vpc_id
+  tags = {
+    Name = "${var.env}-vpc"
+  }
+}
+# create frontend subnets
+resource "aws_subnet" "frontend" {
+  count      = length(count.index)
+  vpc_id     = aws_vpc.vpc.id
+  cidr_block = var.frontend_subnets[count.index+1]
+  availability_zone = var.availability_zones[count.index+1]
+  tags = {
+    Name = "${var.env}-frontend-${count.index+1}"
+  }
+}
+# create backend subnets
+resource "aws_subnet" "backend" {
+  count      = length(count.index)
+  vpc_id     = aws_vpc.vpc.id
+  cidr_block = var.backend_subnets[count.index+1]
+  availability_zone = var.availability_zones[count.index+1]
+  tags = {
+    Name = "${var.env}-backend-${count.index+1}"
+  }
+}
+# create db subnets
+resource "aws_subnet" "db" {
+  count      = length(count.index)
+  vpc_id     = aws_vpc.vpc.id
+  cidr_block = var.db_subnets[count.index+1]
+  availability_zone = var.availability_zones[count.index+1]
+  tags = {
+    Name = "${var.env}-db-${count.index+1}"
+  }
+}
+# peer connection between two vpc id's
+resource "aws_vpc_peering_connection" "peer" {
+  peer_vpc_id   = var.default_vpc_id
+  vpc_id        = aws_vpc.vpc.id
+}
