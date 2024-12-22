@@ -48,11 +48,12 @@ resource "aws_vpc_peering_connection" "peer" {
 resource "aws_route_table" "frontend_route_table" {
   count = length(var.frontend_subnets)
   vpc_id = aws_vpc.vpc.id
+  depends_on = [aws_route.route.id]
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.igw.id
   }
-    tags = {
+   tags = {
     Name = "${var.env}-frontend-rt-tbl-${count.index+1}"
   }
 }
@@ -105,5 +106,9 @@ resource "aws_route" "route" {
   vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
 
 }
+# resource "aws_route" "default_route" {
+#   route_table_id = ""
+#   destination_cidr_block = ""
+# }
 
 # default route table id =rtb-00125ce6494f06f9b
