@@ -7,7 +7,7 @@ resource "aws_vpc" "vpc" {
 }
 # create frontend subnets
 resource "aws_subnet" "frontend" {
-  count      = length(count.index)
+  count      = length(var.frontend_subnets)
   vpc_id     = aws_vpc.vpc.id
   cidr_block = var.frontend_subnets[count.index+1]
   availability_zone = var.availability_zones[count.index+1]
@@ -17,7 +17,7 @@ resource "aws_subnet" "frontend" {
 }
 # create backend subnets
 resource "aws_subnet" "backend" {
-  count      = length(count.index)
+  count      = length(var.backend_subnets)
   vpc_id     = aws_vpc.vpc.id
   cidr_block = var.backend_subnets[count.index+1]
   availability_zone = var.availability_zones[count.index+1]
@@ -27,7 +27,7 @@ resource "aws_subnet" "backend" {
 }
 # create db subnets
 resource "aws_subnet" "db" {
-  count      = length(count.index)
+  count      = length(var.db_subnets)
   vpc_id     = aws_vpc.vpc.id
   cidr_block = var.db_subnets[count.index+1]
   availability_zone = var.availability_zones[count.index+1]
