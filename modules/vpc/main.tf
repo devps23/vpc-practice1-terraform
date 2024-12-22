@@ -164,7 +164,7 @@ resource "aws_route" "public_route" {
 # create a nat gateway
 resource "aws_nat_gateway" "nat_gateway" {
   count = length(var.public_subnets)
-  allocation_id = aws_eip.eip.id
+  allocation_id = aws_eip.eip[count.index].id
   subnet_id     = aws_subnet.public[count.index].id
 
   tags = {
