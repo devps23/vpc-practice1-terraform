@@ -73,17 +73,17 @@ resource "aws_route_table" "db_route_table" {
 resource "aws_route_table_association" "frontend-tbl-ass" {
   count = length(var.frontend_subnets)
   subnet_id      = aws_subnet.frontend[count.index].id
-  route_table_id = aws_route_table.frontend_route_table.id
+  route_table_id = aws_route_table.frontend_route_table[count.index].id
 }
 # create backend route table association with backend subnet
 resource "aws_route_table_association" "backend-tbl-ass" {
   count = length(var.backend_subnets)
   subnet_id      = aws_subnet.backend[count.index].id
-  route_table_id = aws_route_table.backend_route_table.id
+  route_table_id = aws_route_table.backend_route_table[count.index].id
 }
 # create db route table association with db subnet
 resource "aws_route_table_association" "db-tbl-ass" {
   count = length(var.db_subnets)
   subnet_id      = aws_subnet.db[count.index].id
-  route_table_id = aws_route_table.db_route_table.id
+  route_table_id = aws_route_table.db_route_table[count.index].id
 }
