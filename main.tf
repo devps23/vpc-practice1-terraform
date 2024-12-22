@@ -5,7 +5,7 @@ module "app" {
   vpc_id = module.vpc.vpc_id
   subnets = module.vpc.frontend_subnets
 }
-module "vpc1"{
+module "vpc"{
   source = "./modules/vpc"
   vpc_id = var.vpc_id
   env = var.env
