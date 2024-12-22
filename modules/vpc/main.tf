@@ -48,7 +48,6 @@ resource "aws_vpc_peering_connection" "peer" {
 resource "aws_route_table" "frontend_route_table" {
   count = length(var.frontend_subnets)
   vpc_id = aws_vpc.vpc.id
-  depends_on = [aws_route.route.id]
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.igw.id
