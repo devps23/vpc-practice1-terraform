@@ -2,7 +2,7 @@
 resource "aws_instance" "instance" {
   ami = data.aws_ami.ami.image_id
   instance_type = var.instance_type
-  subnet_id = var.frontend_subnets[0].id
+  subnet_id = var.frontend_subnets[0]
 
   instance_market_options {
     market_type = "spot"
