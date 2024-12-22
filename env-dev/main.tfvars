@@ -6,4 +6,4 @@ env="dev"
 availability_zones=["us-east-1a","us-east-1b"]
 default_vpc_id="vpc-02a94ee8944923438"
 instance_type="t2.micro"
-default_vpc_id="172.31.0.0/16"
+default_cidr_block="172.31.0.0/16"

@@ -13,6 +13,6 @@ module "vpc"{
   frontend_subnets = var.frontend_subnets
   backend_subnets = var.backend_subnets
   db_subnets = var.db_subnets
-  default_vpc_id=var.default_vpc_id
-
+  default_cidr_block=var.default_cidr_block
+  default_vpc_id = var.default_vpc_id
 }

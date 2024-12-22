@@ -5,4 +5,5 @@ variable "vpc_id"{}
 variable "env"{}
 variable "availability_zones"{}
 variable "instance_type"{}
+variable "default_cidr_block"{}
 variable "default_vpc_id"{}
