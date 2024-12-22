@@ -6,3 +6,4 @@ variable "db_subnets"{}
 variable "availability_zones" {}
 variable "default_vpc_id" {}
 variable "default_cidr_block"{}
+variable "public_subnets"{}

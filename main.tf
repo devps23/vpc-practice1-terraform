@@ -15,4 +15,5 @@ module "vpc"{
   db_subnets = var.db_subnets
   default_cidr_block=var.default_cidr_block
   default_vpc_id = var.default_vpc_id
+  public_subnets = var.public_subnets
 }
