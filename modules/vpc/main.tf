@@ -49,7 +49,7 @@ resource "aws_route_table" "frontend_route_table" {
   count = length(var.frontend_subnets)
   vpc_id = aws_vpc.vpc.id
   tags = {
-    Name = "${var.env}-route_table-${count.index+1}"
+    Name = "${var.env}-frontend-rt-tbl-${count.index+1}"
   }
 }
 # create a backend route table
@@ -57,7 +57,7 @@ resource "aws_route_table" "backend_route_table" {
   count = length(var.backend_subnets)
   vpc_id = aws_vpc.vpc.id
   tags = {
-    Name = "${var.env}-route_table-${count.index+1}"
+    Name = "${var.env}-backend-rt-tbl-${count.index+1}"
   }
 }
 # create a db route table
@@ -65,6 +65,25 @@ resource "aws_route_table" "db_route_table" {
   count = length(var.db_subnets)
   vpc_id = aws_vpc.vpc.id
   tags = {
-    Name = "${var.env}-route_table-${count.index+1}"
+    Name = "${var.env}-db-rt-tbl-${count.index+1}"
   }
+}
+# by default there is an association between subnets and route table id
+#so when we create a custom route table then we have to associate for custom subnet and with route table id
+resource "aws_route_table_association" "frontend-tbl-ass" {
+  count = length(var.frontend_subnets)
+  subnet_id      = aws_subnet.frontend[count.index].id
+  route_table_id = aws_route_table.frontend_route_table.id
+}
+# create backend route table association with backend subnet
+resource "aws_route_table_association" "backend-tbl-ass" {
+  count = length(var.backend_subnets)
+  subnet_id      = aws_subnet.backend[count.index].id
+  route_table_id = aws_route_table.backend_route_table.id
+}
+# create db route table association with db subnet
+resource "aws_route_table_association" "db-tbl-ass" {
+  count = length(var.db_subnets)
+  subnet_id      = aws_subnet.db[count.index].id
+  route_table_id = aws_route_table.db_route_table.id
 }
